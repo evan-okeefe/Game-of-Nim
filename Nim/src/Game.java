@@ -74,18 +74,15 @@ public class Game {
                 System.out.println(p2.getName() + " loses");
                 System.out.println(p1.getName() + " scores one point");
                 p1.win();
-                System.out.println(p1.getName() + " has " + p1.getScore() + " points");
-                System.out.println(p2.getName() + " has " + p2.getScore() + " points");
-                restart();
             }
             else{
                 System.out.println(p1.getName() + " loses");
                 System.out.println(p2.getName() + " scores one point");
                 p2.win();
-                System.out.println(p1.getName() + " has " + p1.getScore() + " points");
-                System.out.println(p2.getName() + " has " + p2.getScore() + " points");
-                restart();
             }
+            System.out.println(p1.getName() + " has " + p1.getScore() + " points");
+            System.out.println(p2.getName() + " has " + p2.getScore() + " points");
+            restart();
         }
 
     }

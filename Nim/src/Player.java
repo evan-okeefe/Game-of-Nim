@@ -2,10 +2,10 @@ import java.util.Scanner;
 
 public class Player {
 
-    private String name;
+    private final String name;
     private int score;
 
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
 
     public Player(String _name) {
         name = _name;
