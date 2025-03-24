@@ -12,20 +12,20 @@ public class Player {
     }
 
     public void takeTurn(){
-        if (Board.getNumTiles() == 1)
+        if (Board.getNumPieces() == 1)
             System.out.println("Choose a number of tiles to remove (up to " + 1 + "):");
         else
-            System.out.println("Choose a number of tiles to remove (up to " + Board.getNumTiles()/2 + "):");
+            System.out.println("Choose a number of tiles to remove (up to " + Board.getNumPieces()/2 + "):");
         int num = scanner.nextInt();
 
         nim(num);
     }
 
     public void nim(int num){
-        if (Board.getNumTiles() == 1){
+        if (Board.getNumPieces() == 1){
             if (num == 1){
                 System.out.println("You take " + num + " tiles");
-                Board.takeTiles(num);
+                Board.takePieces(num);
             }
             else{
                 System.out.println("You cannot take that many tiles");
@@ -33,9 +33,9 @@ public class Player {
             }
         }
         else{
-            if (num <= Board.getNumTiles()/2){
+            if (num <= Board.getNumPieces()/2){
                 System.out.println(name + " takes " + num + " tiles");
-                Board.takeTiles(num);
+                Board.takePieces(num);
             }
             else{
                 System.out.println("That is too many tiles");

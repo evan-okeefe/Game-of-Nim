@@ -54,7 +54,7 @@ public class Game {
     }
 
     public void loop(){
-        while(Board.getNumTiles() > 0){
+        while(Board.getNumPieces() > 0){
             if (playerTurn == 1){
                 System.out.println(p1.getName() + "'s turn!");
                 Board.display();
@@ -69,7 +69,7 @@ public class Game {
             }
         }
 
-        if (Board.getNumTiles() == 0){
+        if (Board.getNumPieces() == 0){
             if (playerTurn == 1){
                 System.out.println(p2.getName() + " loses");
                 System.out.println(p1.getName() + " scores one point");

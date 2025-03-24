@@ -6,18 +6,18 @@ public class Computer extends Player{
 
     @Override
     public void takeTurn(){
-        if (Board.getNumTiles() == 1) {
+        if (Board.getNumPieces() == 1) {
             nim(1);
             return;
         }
 
         int losingPosition = 1;
-        while ((losingPosition * 2 + 1) <= Board.getNumTiles()) {
+        while ((losingPosition * 2 + 1) <= Board.getNumPieces()) {
             losingPosition = losingPosition * 2 + 1;
         }
 
-        for (int i = 1; i <= Board.getNumTiles() / 2; i++) {
-            if ((Board.getNumTiles() - i) == losingPosition) {
+        for (int i = 1; i <= Board.getNumPieces() / 2; i++) {
+            if ((Board.getNumPieces() - i) == losingPosition) {
                 nim(i);
                 return;
             }
