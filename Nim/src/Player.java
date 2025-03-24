@@ -25,7 +25,6 @@ public class Player {
         if (Board.getNumTiles() == 1){
             if (num == 1){
                 System.out.println("You take " + num + " tiles");
-                score += num;
                 Board.takeTiles(num);
             }
             else{
@@ -35,12 +34,11 @@ public class Player {
         }
         else{
             if (num <= Board.getNumTiles()/2){
-                System.out.println("You take " + num + " tiles");
-                score += num;
+                System.out.println(name + " takes " + num + " tiles");
                 Board.takeTiles(num);
             }
             else{
-                System.out.println("You cannot take that many tiles");
+                System.out.println("That is too many tiles");
                 takeTurn();
             }
         }
@@ -49,6 +47,10 @@ public class Player {
 
     public String getName() {
         return name;
+    }
+
+    public void win(){
+        score++;
     }
 
     public int getScore() {
