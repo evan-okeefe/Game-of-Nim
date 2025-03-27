@@ -2,70 +2,70 @@ public class Game {
     private Player p1;
     private Player p2;
     private int playerTurn;
-    private NimGameGUI gui;
+    private boolean computerOpponent;
+    private NimGUI gui;
 
-    public Game(NimGameGUI gui) {
+    public Game(NimGUI gui) {
         this.gui = gui;
     }
 
-    public void setupPlayers(String p1Name, String p2Name, String opponentChoice) {
+    public void setComputerOpponent(boolean computerOpponent) {
+        this.computerOpponent = computerOpponent;
+    }
+
+    public void setPlayerNames(String p1Name, String p2Name) {
         p1 = new Player(p1Name);
-        if (opponentChoice.equals("Computer")) {
-            p2 = new Computer("Computer");
+        if (computerOpponent) {
+            p2 = new Computer(p2Name);
         } else {
             p2 = new Player(p2Name);
         }
 
-        startNewGame();
+        playerTurn = (int)(Math.random()*2) + 1;
+        gui.showGameScreen();
+        startTurn();
     }
 
-    private void startNewGame() {
-        Board.populate();
-        playerTurn = (int) (Math.random() * 2) + 1;
-        gui.updateBoardDisplay();
-        takeTurn();
-    }
-
-    private void takeTurn() {
-        if (Board.getNumPieces() > 0) {
-            if (playerTurn == 1) {
-                gui.promptMove(p1);
-            } else {
-                gui.promptMove(p2);
-            }
-        } else {
-            checkGameOver();
-        }
-    }
-
-    public void playerMove(int num) {
+    public void startTurn() {
         if (playerTurn == 1) {
-            p1.nim(num);
-            playerTurn = 2;
+            gui.updateGameDisplay(p1.getName() + "'s turn!", Board.getNumPieces());
         } else {
-            p2.nim(num);
-            playerTurn = 1;
-        }
-
-        gui.updateBoardDisplay();
-        takeTurn();
-    }
-
-    private void checkGameOver() {
-        if (Board.getNumPieces() == 0) {
-            if (playerTurn == 1) {
-                gui.showGameOver(p2.getName() + " loses! " + p1.getName() + " wins!");
+            if (p2 instanceof Computer) {
+                ((Computer)p2).takeTurn();
+                endTurn();
             } else {
-                gui.showGameOver(p1.getName() + " loses! " + p2.getName() + " wins!");
+                gui.updateGameDisplay(p2.getName() + "'s turn!", Board.getNumPieces());
             }
         }
     }
 
-    public void askPlayAgain(boolean replay) {
-        if (replay) {
-            startNewGame();
+    public void endTurn() {
+        playerTurn = (playerTurn == 1) ? 2 : 1;
+
+        if (Board.getNumPieces() <= 0) {
+            endGame();
         } else {
-            gui.closeGame();
+            startTurn();
         }
+    }
+
+    private void endGame() {
+        Player winner = (playerTurn == 1) ? p1 : p2;
+        winner.win();
+        gui.showResultScreen(winner);
+    }
+
+    public void playerTakesPieces(int num) {
+        Player currentPlayer = (playerTurn == 1) ? p1 : p2;
+        currentPlayer.nim(num);
+        endTurn();
+    }
+
+    public Player getPlayer1() {
+        return p1;
+    }
+
+    public Player getPlayer2() {
+        return p2;
     }
 }

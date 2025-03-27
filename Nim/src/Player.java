@@ -1,18 +1,26 @@
 public class Player {
-    private String name;
+    private final String name;
     private int score;
 
-    public Player(String name) {
-        this.name = name;
-        this.score = 0;
+    public Player(String _name) {
+        name = _name;
+        score = 0;
+    }
+
+    public void nim(int num) {
+        if (Board.getNumPieces() == 1) {
+            if (num == 1) {
+                Board.takePieces(num);
+            }
+        } else {
+            if (num <= Board.getNumPieces()/2) {
+                Board.takePieces(num);
+            }
+        }
     }
 
     public String getName() {
         return name;
-    }
-
-    public void nim(int num) {
-        Board.removePieces(num);
     }
 
     public void win() {
