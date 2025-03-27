@@ -6,37 +6,66 @@ public class Game {
 
     public Game(NimGameGUI gui) {
         this.gui = gui;
-        setupGame();
     }
 
-    private void setupGame() {
-        // Get Player 1's name from GUI
-        p1 = new Player(gui.getPlayer1Name());
-
-        // Choose opponent: Player or Computer
-        int choice = gui.getOpponentChoice();  // GUI method to get choice (Player/Computer)
-
-        if (choice == 1) {
+    public void setupPlayers(String p1Name, String p2Name, String opponentChoice) {
+        p1 = new Player(p1Name);
+        if (opponentChoice.equals("Computer")) {
             p2 = new Computer("Computer");
         } else {
-            p2 = new Player(gui.getPlayer2Name());
+            p2 = new Player(p2Name);
         }
 
-        Board.populate();
-        playerTurn = (int) (Math.random() * 2) + 1;
-        gui.updateBoardDisplay();  // Initial board update
+        startNewGame();
     }
 
-    public void loop(int num) {
+    private void startNewGame() {
+        Board.populate();
+        playerTurn = (int) (Math.random() * 2) + 1;
+        gui.updateBoardDisplay();
+        takeTurn();
+    }
+
+    private void takeTurn() {
         if (Board.getNumPieces() > 0) {
             if (playerTurn == 1) {
-                p1.nim(num);
-                playerTurn = 2;
+                gui.promptMove(p1);
             } else {
-                p2.nim(num);
-                playerTurn = 1;
+                gui.promptMove(p2);
+            }
+        } else {
+            checkGameOver();
+        }
+    }
+
+    public void playerMove(int num) {
+        if (playerTurn == 1) {
+            p1.nim(num);
+            playerTurn = 2;
+        } else {
+            p2.nim(num);
+            playerTurn = 1;
+        }
+
+        gui.updateBoardDisplay();
+        takeTurn();
+    }
+
+    private void checkGameOver() {
+        if (Board.getNumPieces() == 0) {
+            if (playerTurn == 1) {
+                gui.showGameOver(p2.getName() + " loses! " + p1.getName() + " wins!");
+            } else {
+                gui.showGameOver(p1.getName() + " loses! " + p2.getName() + " wins!");
             }
         }
-        gui.updateBoardDisplay();  // Update the board after each turn
+    }
+
+    public void askPlayAgain(boolean replay) {
+        if (replay) {
+            startNewGame();
+        } else {
+            gui.closeGame();
+        }
     }
 }
