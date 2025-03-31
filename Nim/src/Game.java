@@ -1,3 +1,7 @@
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 public class Game {
     private Player p1;
     private Player p2;
@@ -33,6 +37,7 @@ public class Game {
             if (p2 instanceof Computer) {
                 ((Computer)p2).takeTurn();
                 endTurn();
+
             } else {
                 gui.updateGameDisplay(p2.getName() + "'s turn!", Board.getNumPieces());
             }

@@ -182,8 +182,9 @@ public class NimGUI {
         JButton playAgainButton = new JButton("Play Again");
         playAgainButton.addActionListener(e -> {
             Board.populate();
-            game = new Game(this);
-            cardLayout.show(cardPanel, "playerSelect");
+            //game = new Game(this);
+            cardLayout.show(cardPanel, "game");
+            game.setPlayerNames(game.getPlayer1().getName(), game.getPlayer2().getName());
         });
 
         JButton exitButton = new JButton("Exit");
