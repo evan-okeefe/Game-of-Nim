@@ -211,13 +211,12 @@ public class NimGUI {
 
         turnLabel.setText(turnInfo);
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("Pieces remaining: ").append(numPieces).append("\n\n");
+        String output = "Pieces remaining: " + numPieces + "\n\n";
         for (int i = 0; i < numPieces; i++) {
-            sb.append("($) ");
-            if ((i + 1) % 4 == 0) sb.append("\n");
+            output += "($) ";
+            if ((i + 1) % 4 == 0) output += "\n";
         }
-        piecesArea.setText(sb.toString());
+        piecesArea.setText(output);
 
         JPanel inputPanel = (JPanel)((BorderLayout)gamePanel.getLayout()).getLayoutComponent(BorderLayout.SOUTH);
         JLabel inputLabel = (JLabel)inputPanel.getComponent(0);
